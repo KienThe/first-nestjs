@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  gateway:
+    container_name: gateway
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gateway
+    volumes:
+      - .:/usr/app
+      - ./node_modules:/usr/app/node_modules
+    ports:
+      - 3000:3000
+    networks:
+      - nest
+
+networks:
+  nest:
+    driver: bridge

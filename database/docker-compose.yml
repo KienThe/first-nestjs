@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  database:
+    container_name: database_service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: database_service
+    volumes:
+      - .:/usr/app
+    ports:
+      - 3100:3100
+    networks:
+      - nest
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    environment:
+      - MONGODB_DATABASE=nest
+      - MONGO_INITDB_ROOT_USERNAME=nest
+      - MONGO_INITDB_ROOT_PASSWORD=nest
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
+    networks:
+      - nest
+
+networks:
+  nest:
+    driver: bridge
